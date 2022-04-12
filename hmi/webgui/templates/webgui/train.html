@@ -1,0 +1,40 @@
+{% extends 'webgui/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-3 text-center">
+      <div class="card-header">
+        <h2>Emergency</h2>
+      </div>
+      <div class="card-body">
+        <div class="slidecontainer">
+            <button type="button" id="emergencystop" class="btn btn-danger" style="height: 200px; width: 200px;  border-radius: 50%; font-family: Impact; font-size: 29px;">STOP</button>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function(){
+      // AJAX call to change the Temperature
+      $('#emergencystop').on('click', function(){
+          $.ajax({
+              type: "POST",
+              url: "{% url 'func_change' %}",
+              data: {
+                  'func_code': $('#emergencystop').val(),
+                  'csrfmiddlewaretoken': '{{ csrf_token }}'
+              },
+              dataType: "json",
+              success: function(response){}
+          });
+          return false;
+      });
+  });
+
+</script>
+{% endblock %}
